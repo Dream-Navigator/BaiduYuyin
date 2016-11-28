@@ -1,14 +1,14 @@
 {
-  "name": "baidu_yuyin",
-  "version": "1.1.0",
-  "description": "百度语音的Nodejs实现",
+  "name": "baidu-yuyin-api",
+  "version": "0.1.0",
+  "description": "百度语音的Nodejs实现，支持语音识别与语音合成",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aokihu/BaiduYuyin.git"
+    "url": "git+https://github.com/Dream-Navigator/BaiduYuyin.git"
   },
   "keywords": [
     "baidu",
@@ -20,9 +20,9 @@
   "author": "aokihu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aokihu/BaiduYuyin/issues"
+    "url": "https://github.com/Dream-Navigator/BaiduYuyin.git"
   },
-  "homepage": "https://github.com/aokihu/BaiduYuyin#readme",
+  "homepage": "https://github.com/Dream-Navigator/BaiduYuyin.git",
   "dependencies": {
     "md5": "^2.1.0",
     "request": "^2.61.0"

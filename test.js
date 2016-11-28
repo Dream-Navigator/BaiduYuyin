@@ -1,6 +1,6 @@
 var BaiduYuyin = require("./index.js");
 
-var speech = new BaiduYuyin('ysrI3ruCiHuE4YFFvQpvXuEC', 'feb0c6d26d531a02d04b31a03d46c7f9', 'afplay', './test', false);
+var speech = new BaiduYuyin('ysrI1ruCiHuE4YFFvQpvXuEC', 'feb0c6d26d532a02d04b31a03d46c7f9', 'afplay', './test', false);
 
 speech.on('ready', token => {
 

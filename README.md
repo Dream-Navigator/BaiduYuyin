@@ -1,3 +1,5 @@
+This is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.
+
 ### 注意
 ### 因为Player的依赖库对Nodejs 4.0支持不好，请不要随意升级到新版本
 ## 如果你是Mac用户的话，我已经使用本地播放器来播放语音文件了，不过话说回来，如果是Mac的话本身就有语音库了

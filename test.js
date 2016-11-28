@@ -1,6 +1,16 @@
+/*
+* A config.json file is needed to run this test.
+* Please make sure the APIKey and SecrectKey are in the config.json.
+*/
+var fs = require("fs");
+
+var json = JSON.parse(fs.readFileSync("./config.json"));
 var BaiduYuyin = require("./index.js");
 
-var speech = new BaiduYuyin('ysrI1ruCiHuE4YFFvQpvXuEC', 'feb0c6d26d532a02d04b31a03d46c7f9', 'afplay', './test', false);
+var apiKey = json.APIKey;
+var secrectKey = json.SecrectKey;
+
+var speech = new BaiduYuyin(apiKey, secrectKey, 'afplay', './test', false);
 
 speech.on('ready', token => {
 

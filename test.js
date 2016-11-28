@@ -24,6 +24,10 @@ speech.on('ready', token => {
   //
   // speech.speak(`${daytime}好,现在时间是${daytime}${time}`)
   //
+  if (!token) {
+	  console.log('Token:' + token);
+	  return;
+  }
 
   speech.speak('你好，欢迎光临利生宝公共广播系统')
   //.then(() => {return speech.speak('我公司集合研发、生产、销售于一体')})

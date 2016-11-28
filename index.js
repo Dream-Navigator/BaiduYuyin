@@ -61,12 +61,15 @@ class BaiduYuyin extends eventEmitter{
           let _token = json.access_token;
 
           this.sessionToken = _token;
-          this.isLogin = true;
+		  if (this.sessionToken) {
+			this.isLogin = true;
+			// Save session token to local file
+            fs.writeFile(this.sessionFile, JSON.stringify({token: _token}), err => { if (err) { throw err ;} });
+		  } else {
+			console.log('Login fails, please check API key and secret key.');
+		  }
 
-          // Save session token to local file
-          fs.writeFile(this.sessionFile, JSON.stringify({token: _token}), err => { if (err) { throw err ;} });
-
-          this.emit('ready', _token);
+  		  this.emit('ready', this.sessionToken);
         });
       } else {
         // Read isBuffered token session
@@ -74,9 +77,12 @@ class BaiduYuyin extends eventEmitter{
         let sessionToken = _sessionJson.token;
 
         this.sessionToken = sessionToken;
-        this.isLogin = true;
 
-        this.emit('ready', sessionToken);
+        if (this.sessionToken) {
+          this.isLogin = true;
+        }
+
+		this.emit('ready', this.sessionToken);
       }
     });
 

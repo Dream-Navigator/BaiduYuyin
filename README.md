@@ -1,5 +1,13 @@
 This is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.
 
+Update 0.1.3 [2016-11-28]
+* Using Linux file system
+* Support wmplayer and vlc player on Windows platform
+
+Update 0.1.2 [2016-11-27]
+* Rewrite code style
+* Fix minor issues
+
 ### 注意
 ### 因为Player的依赖库对Nodejs 4.0支持不好，请不要随意升级到新版本
 ## 如果你是Mac用户的话，我已经使用本地播放器来播放语音文件了，不过话说回来，如果是Mac的话本身就有语音库了

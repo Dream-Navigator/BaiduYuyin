@@ -1,6 +1,6 @@
 {
   "name": "baidu-yuyin-api",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "百度语音的Nodejs实现，支持语音识别与语音合成",
   "main": "index.js",
   "scripts": {
@@ -11,11 +11,12 @@
     "url": "git+https://github.com/Dream-Navigator/BaiduYuyin.git"
   },
   "keywords": [
-    "baidu",
-    "speech",
-    "语音合成",
-    "TTS",
-    "百度"
+    "Baidu",
+    "Speech",
+    "Speech Recognition",
+    "Chinese",
+    "Mandarin",
+    "Text To Speech"
   ],
   "author": "aokihu",
   "license": "MIT",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/Dream-Navigator/BaiduYuyin.git",
   "dependencies": {
     "md5": "^2.1.0",
+    "path": "^0.12.7",
     "request": "^2.61.0"
   },
   "devDependencies": {}

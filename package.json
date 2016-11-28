@@ -1,6 +1,6 @@
 {
   "name": "baidu-yuyin-api",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "百度语音的Nodejs实现，支持语音识别与语音合成",
   "main": "index.js",
   "scripts": {

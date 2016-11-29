@@ -1,9 +1,9 @@
 /**
  * Baidu Yuyin RESTful API
  *
- * @author aokihu(aokihu@gmail.com)
- * @version 1.0.0
- * @description Need register for API keys from http://yuyin.baidu.com
+ * @author Abner Chou(hi@abnerchou.me)
+ * @description Nodejs Implement for Baidu Yuyin RESTful API.
+ * Need register for API keys from http://yuyin.baidu.com
  *
  */
 'use strict';

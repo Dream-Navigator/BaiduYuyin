@@ -1,7 +1,7 @@
 /*
-* A config.json file is needed to run this test.
-* Please make sure the APIKey and SecrectKey are in the config.json.
-*/
+ * A config.json file is needed to run this test.
+ * Please make sure the APIKey and SecrectKey are in the config.json.
+ */
 var fs = require("fs");
 
 var json = JSON.parse(fs.readFileSync("./config.json"));
@@ -10,7 +10,7 @@ var BaiduYuyin = require("./index.js");
 var apiKey = json.APIKey;
 var secrectKey = json.SecrectKey;
 
-var speech = new BaiduYuyin(apiKey, secrectKey, 'afplay', './test', false);
+var speech = new BaiduYuyin(apiKey, secrectKey, 'vlc', null, true);
 
 speech.on('ready', token => {
 
@@ -35,13 +35,19 @@ speech.on('ready', token => {
   // speech.speak(`${daytime}好,现在时间是${daytime}${time}`)
   //
   if (!token) {
-	  console.log('Token:' + token);
-	  return;
+    console.log('Token:' + token);
+    return;
   }
 
-  speech.speak('你好，欢迎光临利生宝公共广播系统')
-  //.then(() => {return speech.speak('我公司集合研发、生产、销售于一体')})
-  //.then(() => speech.speak('生产销售适用于公用场所、家居生活的音响设施'))
+  //speech.speak('你好，欢迎测试百度语音')
+  //  .then(() => {
+  //    return speech.speak();
+  //  })
+  //  .then(() => {
+  //    return speech.speak('测试完毕');
+  //  })
+  let audio = fs.readFileSync('./test.pcm')
+  speech.recoginize(audio);
 
 
 });

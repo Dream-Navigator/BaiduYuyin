@@ -1,5 +1,9 @@
 This is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.
 
+Update 0.1.4 [2016-11-29]
+* Supporting speech recoginization
+* Using `NODE_DEBUG=request node test.js` to test HTTP request
+
 Update 0.1.3 [2016-11-28]
 * Using Linux file system
 * Support wmplayer and vlc player on Windows platform

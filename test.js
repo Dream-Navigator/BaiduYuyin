@@ -10,7 +10,7 @@ var BaiduYuyin = require("./index.js");
 var apiKey = json.APIKey;
 var secrectKey = json.SecrectKey;
 
-var speech = new BaiduYuyin(apiKey, secrectKey, 'vlc', null, true);
+var speech = new BaiduYuyin(apiKey, secrectKey, 'afplay', null, true);
 
 speech.on('ready', token => {
 
@@ -46,6 +46,7 @@ speech.on('ready', token => {
   //  .then(() => {
   //    return speech.speak('测试完毕');
   //  })
+
   let audio = fs.readFileSync('./test.pcm')
   speech.recoginize(audio);
 

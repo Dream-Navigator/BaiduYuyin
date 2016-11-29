@@ -200,14 +200,12 @@ class BaiduYuyin extends eventEmitter {
         opt.token = opt.token || this.sessionToken;
         opt.cuid = opt.cuid || 'BDS-fsu77896jjfkfkkf';
         opt.lan = opt.lan || 'zh';
-        opt.len = opt.len || bytes.length;
+        opt.len = opt.len || Buffer.byteLength(audio);
         opt.speech = opt.speech || new Buffer(audio).toString('base64');
 
         return new Promise((resolve, reject) => {
-            request.post(this.__recogination_url__, JSON.stringify(opt), (err, res, body) => {
-                    let json = JSON.parse(body);
-
-                    console.log(json);
+            request.post({url: this.__recogination_url__, json: opt}, (err, res, body) => {
+                    console.log(body);
                 });
         });
 	}

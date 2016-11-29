@@ -1,6 +1,6 @@
 {
   "name": "baidu-yuyin-api",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Nodejs implementation of Baidu Yuyin, support text to speech and speech recognition",
   "main": "index.js",
   "scripts": {

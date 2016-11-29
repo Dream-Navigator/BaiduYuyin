@@ -5,4 +5,5 @@ download/
 config.json
 test/
 temp/
+tmp/
 .vscode/

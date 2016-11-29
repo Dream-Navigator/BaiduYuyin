@@ -10,8 +10,24 @@ var BaiduYuyin = require("./index.js");
 var apiKey = json.APIKey;
 var secrectKey = json.SecrectKey;
 
-var speech = new BaiduYuyin(apiKey, secrectKey, 'afplay', null, true);
+var speech = new BaiduYuyin(apiKey, secrectKey, 'afplay', null, false);
+var opten = {tex: 'English testing, Hello world!', lan: 'en'};
+var optcn = {lan: 'zh'};
 
+speech.on('ready', () => {
+  // Text to speech
+  speech.speak("你好世界")
+    .then(() => {
+      return speech.speak(null, opten);
+    })
+    .then(() => {
+      return speech.speak("测试结束");
+    })
+    .then(() => {
+      return speech.recoginize(fs.readFileSync('./test.pcm'), optcn);
+    });
+});
+/*
 speech.on('ready', token => {
 
   // var now = new Date();
@@ -51,4 +67,4 @@ speech.on('ready', token => {
   speech.recoginize(audio);
 
 
-});
+});*/

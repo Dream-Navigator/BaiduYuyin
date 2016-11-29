@@ -189,11 +189,6 @@ class BaiduYuyin extends eventEmitter {
             opt = {};
         }
 
-        // 32bit to 16bit
-        let buffer = new ArrayBuffer(audio.length * 2);
-        let dataView = new DataView(buffer);
-        let bytes = new Uint8Array(dataView.buffer);
-
         opt.format = opt.format || 'pcm';
         opt.rate = opt.rate || 8000;
         opt.channel = opt.channel || 1;

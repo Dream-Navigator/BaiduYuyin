@@ -1,0 +1,115 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.9
+3 info using node@v7.2.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/Haochen/myCode/BaiduYuyin',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/Haochen/.npm correctMkdir not in flight; initializing
+10 info lifecycle baidu-yuyin-api@0.1.4~prepublish: baidu-yuyin-api@0.1.4
+11 silly lifecycle baidu-yuyin-api@0.1.4~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package.tgz',
+12 verbose tar pack   '/Users/Haochen/myCode/BaiduYuyin' ]
+13 verbose tarball /Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package.tgz
+14 verbose folder /Users/Haochen/myCode/BaiduYuyin
+15 verbose addLocalTarball adding from inside cache /Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package.tgz
+16 verbose correctMkdir /Users/Haochen/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd baidu-yuyin-api@0.1.4
+18 verbose afterAdd /Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/Haochen/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package/package.json written
+21 silly publish { name: 'baidu-yuyin-api',
+21 silly publish   version: '0.1.4',
+21 silly publish   description: 'Nodejs implementation of Baidu Yuyin, support text to speech and speech recognition',
+21 silly publish   main: 'index.js',
+21 silly publish   scripts: { test: 'node test.js' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/Dream-Navigator/BaiduYuyin.git' },
+21 silly publish   keywords:
+21 silly publish    [ 'Baidu',
+21 silly publish      'Speech',
+21 silly publish      'Speech Recognition',
+21 silly publish      'Chinese',
+21 silly publish      'Mandarin',
+21 silly publish      'Text To Speech' ],
+21 silly publish   author: { name: 'aokihu' },
+21 silly publish   license: 'MIT',
+21 silly publish   bugs: { url: 'https://github.com/Dream-Navigator/BaiduYuyin.git' },
+21 silly publish   homepage: 'https://github.com/Dream-Navigator/BaiduYuyin.git',
+21 silly publish   dependencies: { md5: '^2.1.0', path: '^0.12.7', request: '^2.61.0' },
+21 silly publish   devDependencies: {},
+21 silly publish   readme: 'Baidu Yuyin API\n-----------------------\n[![npm version](https://badge.fury.io/js/baidu-yuyin-api.svg)](https://badge.fury.io/js/baidu-yuyin-api)\n\nThis is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.\nThe original README is [here](https://github.com/Dream-Navigator/BaiduYuyin/blob/master/DEPRECATE-README.md)(in Chinese).\n\nUsage\n-------\n### Installation\n\n`npm install baidu_yuyin`\n\n### Examples\n```javascript\nvar BaiduYuyin = require("BaiduYuyin");\n\nvar speech = new BDSpeech(apiKey, secretKey,\'afplayer\', \'/tmp\');\nvar opten = {tex: \'English testing, Hello world!\', lan: \'en\'};\nvar optcn = {lan: \'zh\'};\n\nspeech.on(\'ready\', () => {\n  // Text to speech\n  speech.speak("你好世界")\n    .then(() => {\n      return speech.speak(null, opten);\n    })\n    .then(() => {\n      return speech.speak("测试结束");\n    })\n    .then(() => {\n      return speech.recoginize(fs.readFileSync(\'./test.pcm\'), optcn);\n    });\n});\n\n```\n\n\nChange Logs\n-----------\n\nUpdate 0.1.4 [2016-11-29]\n* Supporting speech recoginization\n* Using `NODE_DEBUG=request node test.js` to test HTTP request\n\nUpdate 0.1.3 [2016-11-28]\n* Using Linux file system\n* Support wmplayer and vlc player on Windows platform\n\nUpdate 0.1.2 [2016-11-27]\n* Rewrite code style\n* Fix minor issues\n\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: 'b15099d9c5e07f3d0c10e97ebdf52303e639ff44',
+21 silly publish   _id: 'baidu-yuyin-api@0.1.4',
+21 silly publish   _shasum: 'e94a1df898d3ddccd8144161319180d7ee572d85',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name baidu-yuyin-api
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'baidu-yuyin-api',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'baidu-yuyin-api',
+26 silly mapToRegistry   name: 'baidu-yuyin-api',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/baidu-yuyin-api
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/Haochen/.npm/baidu-yuyin-api/0.1.4/package.tgz
+30 verbose request uri https://registry.npmjs.org/baidu-yuyin-api
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 8:23:05 AM
+33 verbose request using bearer token for auth
+34 verbose request id 0e31e4215a1149da
+35 http request PUT https://registry.npmjs.org/baidu-yuyin-api
+36 http 403 https://registry.npmjs.org/baidu-yuyin-api
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '95',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Tue, 29 Nov 2016 13:23:06 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-ord1741-ORD',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1480425785.935067,VS0,VE697',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/Haochen/.npm/registry.npmjs.org/baidu-yuyin-api on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: "You cannot publish over the previously published version 0.1.4." : baidu-yuyin-api
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+40 verbose stack     at emitOne (events.js:96:13)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:969:12)
+41 verbose statusCode 403
+42 verbose pkgid baidu-yuyin-api
+43 verbose cwd /Users/Haochen/myCode/BaiduYuyin
+44 error Darwin 16.1.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+46 error node v7.2.0
+47 error npm  v3.10.9
+48 error code E403
+49 error "You cannot publish over the previously published version 0.1.4." : baidu-yuyin-api
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]

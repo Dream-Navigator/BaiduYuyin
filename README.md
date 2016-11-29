@@ -15,21 +15,25 @@ Usage
 ```javascript
 var BaiduYuyin = require("BaiduYuyin");
 
-var speech = new BDSpeech(apiKey, secretKey,'afplayer', '/tmp');
-var opten = {tex: 'English testing, Hello world!', lan: 'en'};
+var speech = new BaiduYuyin(apiKey, secretKey,'afplayer', '/tmp');
+var optt = {tex: 'English testing, Hello world', lan: 'zh'}; // Text to speech, language not support English.
 var optcn = {lan: 'zh'};
+var opten = {format: 'wav', lan: 'en'};
 
 speech.on('ready', () => {
-  // Text to speech
-  speech.speak("你好世界")
+    // Text to speech
+    speech.speak("你好世界")
     .then(() => {
-      return speech.speak(null, opten);
+        return speech.speak(null, optt);
     })
     .then(() => {
-      return speech.speak("测试结束");
+        return speech.speak("测试结束");
     })
     .then(() => {
-      return speech.recoginize(fs.readFileSync('./test.pcm'), optcn);
+        return speech.recoginize(fs.readFileSync('./test.pcm'), optcn);
+    })
+    .then(() => {
+        return speech.recoginize(fs.readFileSync('./test_en.wav'), opten);
     });
 });
 
@@ -38,6 +42,11 @@ speech.on('ready', () => {
 
 Change Logs
 -----------
+
+Update 0.1.6 [2016-11-29]
+* Update README
+* Update test sample
+* Text to speech not support English output
 
 Update 0.1.4 [2016-11-29]
 * Supporting speech recoginization

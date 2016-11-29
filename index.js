@@ -114,7 +114,7 @@ class BaiduYuyin extends eventEmitter {
     }
 
     /*
-     * [speak description]
+     * [speak text to speech]
      * @method speak
      * @param  {string} txt     Input string to transfer to audio
      * @param  {list}   opt     Option list
@@ -125,15 +125,9 @@ class BaiduYuyin extends eventEmitter {
             opt = {};
         }
 
-        opt.tex = opt.tex || encodeURIComponent(txt || 'I don\'t know what to say');
-        opt.lan = opt.lan || 'zh';
-        opt.tok = opt.tok || this.sessionToken;
-        opt.ctp = opt.ctp || 1;
-        opt.cuid = opt.cuid || 'BDS-fsu77866jjfkfkkf';
-        opt.spd = opt.spd || 4;
-        opt.pit = opt.pit || 4;
-        opt.vol = opt.vol || 5;
-        opt.per = opt.per || 0;
+        opt = this._optionDefault(opt, 1);
+        
+        opt.tex = txt ? encodeURIComponent(txt) : opt.tex;
 
         let url = this.__text2audio_url__ + '?' + querystring.stringify(opt);
         let dl = md5(url) + '.mp3';
@@ -178,7 +172,7 @@ class BaiduYuyin extends eventEmitter {
     }
 
 	/*
-     * [recoginize description]
+     * [recoginize transfer audio to text]
      * @method recoginize
      * @param  {audio}  audio   Input audio to translate
      * @param  {list}   opt     Option list
@@ -188,22 +182,52 @@ class BaiduYuyin extends eventEmitter {
             console.log('Parameter opt is not provided, using default values');
             opt = {};
         }
-
-        opt.format = opt.format || 'pcm';
-        opt.rate = opt.rate || 8000;
-        opt.channel = opt.channel || 1;
-        opt.token = opt.token || this.sessionToken;
-        opt.cuid = opt.cuid || 'BDS-fsu77896jjfkfkkf';
-        opt.lan = opt.lan || 'zh';
-        opt.len = opt.len || Buffer.byteLength(audio);
-        opt.speech = opt.speech || new Buffer(audio).toString('base64');
+        
+        opt = this._optionDefault(opt, 0);
+       
+        opt.len = audio ? Buffer.byteLength(audio) : opt.len;
+        opt.speech = audio ? new Buffer(audio).toString('base64') : opt.speech;
 
         return new Promise((resolve, reject) => {
             request.post({url: this.__recogination_url__, json: opt}, (err, res, body) => {
                     console.log(body);
+                    resolve();
                 });
         });
 	}
+    /*
+     * [_optionDefault set default values for option]
+     * @method recoginize
+     * @param  {object} opt     Input options
+     * @param  {int}    mode    Mode=0 recoginize; Mode=1 speak
+     * @return {object} opt     Return the options
+     */
+    _optionDefault(opt, mode){
+
+        opt.lan = opt.lan || 'zh';
+        opt.cuid = opt.cuid || 'BDS-fsu77866jjfkfkkf';
+
+        if(mode == 0){
+            opt.format = opt.format || 'pcm';
+            opt.rate = opt.rate || 8000;
+            opt.channel = opt.channel || 1;
+            opt.token = opt.token || this.sessionToken;
+            opt.len = opt.len           // No default
+            opt.speech = opt.speech     // No default
+        }
+
+        if(mode == 1){
+            opt.tex = opt.tex || encodeURIComponent('I don\'t know what to say');
+            opt.tok = opt.tok || this.sessionToken;
+            opt.ctp = opt.ctp || 1;
+            opt.spd = opt.spd || 4;
+            opt.pit = opt.pit || 4;
+            opt.vol = opt.vol || 5;
+            opt.per = opt.per || 0;
+        }
+
+        return opt;
+    }
 }
 
 module.exports = BaiduYuyin;

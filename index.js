@@ -28,9 +28,10 @@ class BaiduYuyin extends eventEmitter {
      * @param  {boolean}   isBuffered=false     Set if save buffer locally
      */
     constructor(apiKey, secrectKey, playCmd = 'afplay', path, isBuffered = false) {
+
         super();
 
-        let __accessUrl__ = 'https://openapi.baidu.com/oauth/2.0/token';
+        this.__access_url__ = 'https://openapi.baidu.com/oauth/2.0/token';
         this.__text2audio_url__ = 'http://tsn.baidu.com/text2audio';
         this.__recogination_url__ = 'http://vop.baidu.com/server_api';
 
@@ -51,45 +52,19 @@ class BaiduYuyin extends eventEmitter {
             client_id: clientID,
             client_secret: clientSecret,
         };
+        // Get Baidu token session
+        var _url = this.__access_url__ + '?' + querystring.stringify(params);
 
         fs.access(this.sessionFile, fs.F_OK, err => {
+
             if (err) {
-                // Get Baidu token session
-                var _url = __accessUrl__ + '?' + querystring.stringify(params);
-
-                request(_url, (err, res, body) => {
-                    let json = JSON.parse(body);
-                    let _token = json.access_token;
-
-                    this.sessionToken = _token;
-                    if (this.sessionToken) {
-                        this.isLogin = true;
-                        // Save session token to local file
-                        fs.writeFile(this.sessionFile, JSON.stringify({
-                            token: _token
-                        }), err => {
-                            if (err) {
-                                throw err;
-                            }
-                        });
-                    } else {
-                        console.log('Login fails, please check API key and secret key.');
-                    }
-
-                    this.emit('ready', this.sessionToken);
-                });
+                this._checkAuthentication(_url);
             } else {
                 // Read isBuffered token session
                 let _sessionJson = JSON.parse(fs.readFileSync(this.sessionFile));
                 let sessionToken = _sessionJson.token;
 
-                this.sessionToken = sessionToken;
-
-                if (this.sessionToken) {
-                    this.isLogin = true;
-                }
-
-                this.emit('ready', this.sessionToken);
+                this._checkAuthentication(_url, sessionToken);
             }
         });
 
@@ -120,6 +95,7 @@ class BaiduYuyin extends eventEmitter {
      * @param  {list}   opt     Option list
      */
     speak(txt, opt) {
+
         if (!opt) {
             console.log('Parameter opt is not provided, using default values');
             opt = {};
@@ -133,6 +109,7 @@ class BaiduYuyin extends eventEmitter {
         let dl = md5(url) + '.mp3';
 
         return new Promise((resolve, reject) => {
+
             let dlFile = p.normalize(this.isBufferedPath + '/' + dl);
 
             if (this.isBuffered) {
@@ -178,6 +155,7 @@ class BaiduYuyin extends eventEmitter {
      * @param  {list}   opt     Option list
      */
     recoginize(audio, opt) {
+
         if (!opt){
             console.log('Parameter opt is not provided, using default values');
             opt = {};
@@ -227,6 +205,45 @@ class BaiduYuyin extends eventEmitter {
         }
 
         return opt;
+    }
+    /*
+     * [_checkAuthentication check if user ]
+     * @method recoginize
+     * @param  {string} url     The prepared URL for API authentication
+     * @param  {string} token   Optional. Check if match the exist token
+     * @return null
+     */
+    _checkAuthentication(url, token){
+        request(url, (err, res, body) => {
+                let json = JSON.parse(body);
+                let _tok = json.access_token;
+
+                this.sessionToken = _tok;
+                if (this.sessionToken) {
+                    if (this.sessionToken == token){
+                        // Nothing needs to do as already authorized.
+                    } else {
+                        if (token){
+                            fs.unlinkSync(this.sessionFile);
+                        }
+
+                        // Save session token to local file
+                        fs.writeFile(this.sessionFile, JSON.stringify({
+                            token: _tok
+                        }), err => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+                    }
+
+                    this.isLogin = true;
+                } else {
+                    console.log('Login fails, please check API key and secret key.');
+                }
+
+                this.emit('ready', this.sessionToken);
+            });
     }
 }
 

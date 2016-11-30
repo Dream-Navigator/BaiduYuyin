@@ -6,17 +6,30 @@ Baidu Yuyin API
 This is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.
 The original README is [here](https://github.com/Dream-Navigator/BaiduYuyin/blob/master/DEPRECATE-README.md)(in Chinese).
 
+[![NPM](https://nodei.co/npm/baidu-yuyin-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/baidu-yuyin-api/)
+
 Usage
 -------
+
+**Need Nodejs v6 above to run this module.**
+
 ### Installation
 
-`npm install baidu_yuyin`
+```bash
+npm install baidu-yuyin-api
+```
 
 ### Examples
 ```javascript
-var BaiduYuyin = require("BaiduYuyin");
+var BaiduYuyin = require("baidu-yuyin-api");
 
-var speech = new BaiduYuyin(apiKey, secretKey,'afplayer', '/tmp');
+// Init Baidu Yuyin API.
+// Make sure the apiKey and secretKey are set.
+// afplay is default player for Mac OS.
+// For windows, can use vlc or wmplayer instread.
+var speech = new BaiduYuyin(apiKey, secretKey, 'afplay', '/tmp'); 
+
+// Options
 var optt = {tex: 'English testing, Hello world', lan: 'zh'}; // Text to speech, language not support English.
 var optcn = {lan: 'zh'};
 var opten = {format: 'wav', lan: 'en'};
@@ -40,9 +53,17 @@ speech.on('ready', () => {
 
 ```
 
+### Test
+
+Clone this repo to local, and run `npm test`.
 
 Change Logs
 -----------
+
+Update 0.1.7 [2016-11-30]
+* Fix the samples in README
+* Add test API key in config.json
+* Auto renew session token if it exipired (30 days)
 
 Update 0.1.6 [2016-11-29]
 * Update README

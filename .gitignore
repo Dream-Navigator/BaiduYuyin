@@ -2,7 +2,6 @@ node_modules/
 session.json
 download/
 *.mp3
-config.json
 test/
 temp/
 tmp/

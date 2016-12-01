@@ -1,6 +1,6 @@
 {
   "name": "baidu-yuyin-api",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Nodejs implementation of Baidu Yuyin, support text to speech and speech recognition",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/Dream-Navigator/BaiduYuyin.git",
   "dependencies": {
     "md5": "^2.1.0",
+    "moment": "^2.17.0",
     "path": "^0.12.7",
     "request": "^2.61.0"
   },

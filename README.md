@@ -26,8 +26,8 @@ var BaiduYuyin = require("baidu-yuyin-api");
 // Init Baidu Yuyin API.
 // Make sure the apiKey and secretKey are set.
 // afplay is default player for Mac OS.
-// For windows, can use vlc or wmplayer instread.
-var speech = new BaiduYuyin(apiKey, secretKey, 'afplay', '/tmp'); 
+// For windows, can use vlc or wmplayer instead.
+var speech = new BaiduYuyin(apiKey, secretKey, 'afplay', null, false); 
 
 // Options
 var optt = {tex: 'English testing, Hello world', lan: 'zh'}; // Text to speech, language not support English.
@@ -44,10 +44,10 @@ speech.on('ready', () => {
         return speech.speak("测试结束");
     })
     .then(() => {
-        return speech.recoginize(fs.readFileSync('./test.pcm'), optcn);
+        return speech.recognize(fs.readFileSync('./test.pcm'), optcn);
     })
     .then(() => {
-        return speech.recoginize(fs.readFileSync('./test_en.wav'), opten);
+        return speech.recognize(fs.readFileSync('./test_en.wav'), opten);
     });
 });
 
@@ -55,15 +55,20 @@ speech.on('ready', () => {
 
 ### Test
 
-Clone this repo to local, and run `npm test`.
+Clone the repo to local, and run `npm test`.
 
 Change Logs
 -----------
 
+Update 0.1.8 [2016-12-01]
+* Make sure only renew session file when necessary
+* Minor fixes on README
+* Correct miss spelling words
+
 Update 0.1.7 [2016-11-30]
 * Fix the samples in README
 * Add test API key in config.json
-* Auto renew session token if it exipired (30 days)
+* Auto renew session token if it expired (30 days)
 
 Update 0.1.6 [2016-11-29]
 * Update README
@@ -71,7 +76,7 @@ Update 0.1.6 [2016-11-29]
 * Text to speech not support English output
 
 Update 0.1.4 [2016-11-29]
-* Supporting speech recoginization
+* Supporting speech recognition
 * Using `NODE_DEBUG=request node test.js` to test HTTP request
 
 Update 0.1.3 [2016-11-28]

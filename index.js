@@ -16,18 +16,19 @@ const md5 = require('md5');
 const fs = require('fs');
 const childProcess = require('child_process');
 const p = require('path');
+const moment = require('moment');
 
 class BaiduYuyin extends eventEmitter {
     /*
      * Constructor
      * @method constructor
      * @param  {string}    apiKey               In the Baidu Yuyin APP
-     * @param  {string}    secrectKey           In the Baidu Yuyin APP
+     * @param  {string}    secretKey            In the Baidu Yuyin APP
      * @param  {string}    playCmd='afplay'     Command for audio player
      * @param  {string}    path                 Path to save data
      * @param  {boolean}   isBuffered=false     Set if save buffer locally
      */
-    constructor(apiKey, secrectKey, playCmd = 'afplay', path, isBuffered = false) {
+    constructor(apiKey, secretKey, playCmd = 'afplay', path, isBuffered = false) {
 
         super();
 
@@ -36,7 +37,7 @@ class BaiduYuyin extends eventEmitter {
         this.__recogination_url__ = 'http://vop.baidu.com/server_api';
 
         let clientID = apiKey;
-        let clientSecret = secrectKey;
+        let clientSecret = secretKey;
         let grantType = 'client_credentials';
 
         this.isBuffered = isBuffered; // Check if store audio
@@ -62,9 +63,13 @@ class BaiduYuyin extends eventEmitter {
             } else {
                 // Read isBuffered token session
                 let _sessionJson = JSON.parse(fs.readFileSync(this.sessionFile));
-                let sessionToken = _sessionJson.token;
+                let _sessionToken = _sessionJson.token;
+                let _createDate = _sessionJson.create_date;
 
-                this._checkAuthentication(_url, sessionToken);
+
+                this.sessionToken = _sessionToken;
+
+                this._checkAuthentication(_url, _createDate);
             }
         });
 
@@ -89,7 +94,7 @@ class BaiduYuyin extends eventEmitter {
     }
 
     /*
-     * [speak text to speech]
+     * [Text to speech]
      * @method speak
      * @param  {string} txt     Input string to transfer to audio
      * @param  {list}   opt     Option list
@@ -149,12 +154,12 @@ class BaiduYuyin extends eventEmitter {
     }
 
 	/*
-     * [recoginize transfer audio to text]
-     * @method recoginize
+     * [Transfer audio to text]
+     * @method recognize
      * @param  {audio}  audio   Input audio to translate
      * @param  {list}   opt     Option list
      */
-    recoginize(audio, opt) {
+    recognize(audio, opt) {
 
         if (!opt){
             console.log('Parameter opt is not provided, using default values');
@@ -174,10 +179,10 @@ class BaiduYuyin extends eventEmitter {
         });
 	}
     /*
-     * [_optionDefault set default values for option]
-     * @method recoginize
+     * [Set default values for option]
+     * @method _optionDefault
      * @param  {object} opt     Input options
-     * @param  {int}    mode    Mode=0 recoginize; Mode=1 speak
+     * @param  {int}    mode    Mode=0 recognize; Mode=1 speak
      * @return {object} opt     Return the options
      */
     _optionDefault(opt, mode){
@@ -207,43 +212,56 @@ class BaiduYuyin extends eventEmitter {
         return opt;
     }
     /*
-     * [_checkAuthentication check if user ]
-     * @method recoginize
-     * @param  {string} url     The prepared URL for API authentication
-     * @param  {string} token   Optional. Check if match the exist token
+     * [Check if API key has been authorized]
+     * @method _checkAuthentication
+     * @param  {string} url         The prepared URL for API authentication
+     * @param  {date}   createDate  Token created date
      * @return null
      */
-    _checkAuthentication(url, token){
-        request(url, (err, res, body) => {
-                let json = JSON.parse(body);
-                let _tok = json.access_token;
+    _checkAuthentication(url, createDate){
+        let _currentDate = new moment().format();
+        let _dayDiff = 30;
 
-                this.sessionToken = _tok;
-                if (this.sessionToken) {
-                    if (this.sessionToken == token){
-                        // Nothing needs to do as already authorized.
-                    } else {
-                        if (token){
+        if (createDate){
+            let _current = new moment(_currentDate);
+            let _create = new moment(createDate);
+
+            _dayDiff = _create.diff(_current, 'days');
+        } 
+        
+        if (_dayDiff >= 29) {
+            request(url, (err, res, body) => {
+                    let json = JSON.parse(body);
+                    let _tok = json.access_token;
+                    let _refreshTok = json.refresh_token;
+
+                    this.sessionToken = _tok;
+                    if (this.sessionToken) {
+                        if (createDate){
                             fs.unlinkSync(this.sessionFile);
                         }
 
                         // Save session token to local file
                         fs.writeFile(this.sessionFile, JSON.stringify({
-                            token: _tok
+                            token: _tok,
+                            refresh_token: _refreshTok,
+                            create_date: _currentDate
                         }), err => {
                             if (err) {
                                 throw err;
                             }
                         });
+
+                        this.isLogin = true;
+
+                        this.emit('ready', this.sessionToken);
+                    } else {
+                        console.log('Login fails, please check API key and secret key.');
                     }
-
-                    this.isLogin = true;
-                } else {
-                    console.log('Login fails, please check API key and secret key.');
-                }
-
-                this.emit('ready', this.sessionToken);
-            });
+                });
+        } else {
+            this.emit('ready', this.sessionToken);
+        }
     }
 }
 

@@ -10,7 +10,7 @@ var BaiduYuyin = require("./index.js");
 var apiKey = json.APIKey;
 var secretKey = json.SecretKey;
 
-var speech = new BaiduYuyin(apiKey, secretKey, 'afplay', null, false); //Win: vlc, wmplayer MacOS: afplay
+var speech = new BaiduYuyin(apiKey, secretKey, 'vlc', null, true); //Win: vlc, wmplayer MacOS: afplay
 var optt = {
     tex: 'English testing, Hello world',
     lan: 'zh'

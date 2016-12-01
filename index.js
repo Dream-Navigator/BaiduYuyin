@@ -18,6 +18,9 @@ const childProcess = require('child_process');
 const p = require('path');
 const moment = require('moment');
 
+// Const variables
+const SESSION_EXPIRED_DAYS = 30
+
 class BaiduYuyin extends eventEmitter {
     /*
      * Constructor
@@ -34,7 +37,7 @@ class BaiduYuyin extends eventEmitter {
 
         this.__access_url__ = 'https://openapi.baidu.com/oauth/2.0/token';
         this.__text2audio_url__ = 'http://tsn.baidu.com/text2audio';
-        this.__recogination_url__ = 'http://vop.baidu.com/server_api';
+        this.__recognition_url__ = 'http://vop.baidu.com/server_api';
 
         let clientID = apiKey;
         let clientSecret = secretKey;
@@ -65,7 +68,6 @@ class BaiduYuyin extends eventEmitter {
                 let _sessionJson = JSON.parse(fs.readFileSync(this.sessionFile));
                 let _sessionToken = _sessionJson.token;
                 let _createDate = _sessionJson.create_date;
-
 
                 this.sessionToken = _sessionToken;
 
@@ -139,7 +141,7 @@ class BaiduYuyin extends eventEmitter {
             download.on('finish', () => {
                 childProcess.spawn(this.playCmd, [dlFile])
                     .on('exit', (code, signal) => {
-                        // Remove temp muisc file
+                        // Remove temp audio file
                         if (!this.isBuffered) {
                             fs.unlinkSync(dlFile);
                         }
@@ -172,7 +174,7 @@ class BaiduYuyin extends eventEmitter {
         opt.speech = audio ? new Buffer(audio).toString('base64') : opt.speech;
 
         return new Promise((resolve, reject) => {
-            request.post({url: this.__recogination_url__, json: opt}, (err, res, body) => {
+            request.post({url: this.__recognition_url__, json: opt}, (err, res, body) => {
                     console.log(body);
                     resolve();
                 });
@@ -187,16 +189,16 @@ class BaiduYuyin extends eventEmitter {
      */
     _optionDefault(opt, mode){
 
-        opt.lan = opt.lan || 'zh';
-        opt.cuid = opt.cuid || 'BDS-fsu77866jjfkfkkf';
+        opt.lan  = opt.lan  || 'zh';
+        opt.cuid = opt.cuid || 'Nodejs-Baidu-Yuyin-API-Request';
 
         if(mode == 0){
-            opt.format = opt.format || 'pcm';
-            opt.rate = opt.rate || 8000;
-            opt.channel = opt.channel || 1;
-            opt.token = opt.token || this.sessionToken;
-            opt.len = opt.len           // No default
-            opt.speech = opt.speech     // No default
+            opt.format  = opt.format    || 'pcm';
+            opt.rate    = opt.rate      || 8000;
+            opt.channel = opt.channel   || 1;
+            opt.token   = opt.token     || this.sessionToken;
+            opt.len     = opt.len;      // No default
+            opt.speech  = opt.speech;   // No default
         }
 
         if(mode == 1){
@@ -220,16 +222,16 @@ class BaiduYuyin extends eventEmitter {
      */
     _checkAuthentication(url, createDate){
         let _currentDate = new moment().format();
-        let _dayDiff = 30;
+        let _dayDiff = SESSION_EXPIRED_DAYS;
 
         if (createDate){
             let _current = new moment(_currentDate);
             let _create = new moment(createDate);
 
-            _dayDiff = _create.diff(_current, 'days');
+            _dayDiff = _current.diff(_create, 'days');
         } 
         
-        if (_dayDiff >= 29) {
+        if (_dayDiff >= SESSION_EXPIRED_DAYS) {
             request(url, (err, res, body) => {
                     let json = JSON.parse(body);
                     let _tok = json.access_token;

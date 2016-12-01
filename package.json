@@ -1,10 +1,11 @@
 {
   "name": "baidu-yuyin-api",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Nodejs implementation of Baidu Yuyin, support text to speech and speech recognition",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "demo": "node ./demo/app.js"
   },
   "repository": {
     "type": "git",

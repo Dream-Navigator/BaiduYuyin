@@ -60,9 +60,8 @@ Clone the repo to local, and run `npm install && npm test`.
 Change Logs
 -----------
 
-Update 0.1.9 [2016-12-01]
+Update 0.1.9 [2016-12-02]
 * Fix the auto renew session token
-* Add demo
 
 Update 0.1.8 [2016-12-01]
 * Make sure only renew session file when necessary

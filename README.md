@@ -3,8 +3,8 @@ Baidu Yuyin API
 [![npm version](https://badge.fury.io/js/baidu-yuyin-api.svg)](https://badge.fury.io/js/baidu-yuyin-api)
 [![Dependency Status](https://img.shields.io/david/request/request.svg?style=flat-square)](https://david-dm.org/request/request)
 
-This is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.
-The original README is [here](https://github.com/Dream-Navigator/BaiduYuyin/blob/master/DEPRECATE-README.md)(in Chinese).
+~~This is a forked repo of [baidu_yuyin](https://github.com/aokihu/BaiduYuyin). Currently under development, use with caution.
+The original README is [here](https://github.com/Dream-Navigator/BaiduYuyin/blob/master/DEPRECATE-README.md)(in Chinese).~~
 
 [![NPM](https://nodei.co/npm/baidu-yuyin-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/baidu-yuyin-api/)
 
